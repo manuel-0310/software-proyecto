@@ -1,4 +1,4 @@
-import '../models/invitado.dart';
+import '../../models/invitado.dart';
 
 /// Fuente de datos local para invitados (almacenamiento en memoria).
 ///

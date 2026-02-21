@@ -102,6 +102,31 @@ class BodaController {
 
   // ── Accesores de conveniencia ─────────────────────────────────────────────
 
+  // ── Eventos (puente UI → EventoService) ───────────────────────────────────
+
+  void crearEvento({
+    required String id,
+    required String nombre,
+    required String lugar,
+    required DateTime fechaHora,
+    required int duracionMinutos,
+    String? descripcion,
+  }) {
+    _eventoService.crear(
+      id: id,
+      nombre: nombre,
+      lugar: lugar,
+      fechaHora: fechaHora,
+      duracionMinutos: duracionMinutos,
+      descripcion: descripcion,
+    );
+    refrescar();
+  }
+
+  void eliminarEvento(String id) {
+    _eventoService.eliminar(id);
+    refrescar();
+  }
   String get titulo => _boda?.titulo ?? '—';
   int get diasRestantes => _boda?.diasRestantes ?? 0;
   int get totalInvitados => _boda?.totalInvitados ?? 0;

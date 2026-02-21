@@ -1,5 +1,5 @@
-import '../models/evento.dart';
-import '../enums/estado_evento.dart';
+import '../../models/evento.dart';
+import '../../enums/estado_evento.dart';
 
 /// Fuente de datos local para eventos (almacenamiento en memoria).
 ///

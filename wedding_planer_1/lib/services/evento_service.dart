@@ -57,11 +57,11 @@ class EventoService {
   }
 
   /// Retorna eventos ordenados cronológicamente.
-  List<Evento> obtenerOrdenados() {
-    final lista = obtenerTodos();
-    lista.sort((a, b) => a.fechaHora.compareTo(b.fechaHora));
-    return lista;
-  }
+List<Evento> obtenerOrdenados() {
+  final lista = List<Evento>.from(obtenerTodos()); // ✅ copia mutable
+  lista.sort((a, b) => a.fechaHora.compareTo(b.fechaHora));
+  return lista;
+}
 
   /// Retorna el próximo evento que aún no ha finalizado.
   Evento? proximoEvento() {

@@ -1,5 +1,5 @@
-import '../models/proveedor.dart';
-import '../enums/tipo_proveedor.dart';
+import '../../models/proveedor.dart';
+import '../../enums/tipo_proveedor.dart';
 
 /// Fuente de datos local para proveedores (almacenamiento en memoria).
 ///
