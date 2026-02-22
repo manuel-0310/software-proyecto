@@ -5,7 +5,7 @@ La planificación de una boda es un desafío logístico y financiero complejo. T
 
 ## creatividad en la Presentación
 Para ilustrar la problemática y como la applicación sulucionaría este problema se realizó un comic que cuanta la historia de una pareja de novios que está organizando su boda, el cual se encuentra incluído en las siguientes diapositivas:.
-[https://www.canva.com/design/DAHCFCQ8Uz4/y20kq2oqmsZ60wzm1IkLrg/view / Recurso Creativo aquí]
+[Recurso Creativo aquí](https://www.canva.com/design/DAHCFCQ8Uz4/y20kq2oqmsZ60wzm1IkLrg/view)
 
 ## Fundamentos de Ingeniería de Software
 Nuestro sistema prioriza los siguientes atributos de calidad para asegurar una solución robusta a largo plazo:
