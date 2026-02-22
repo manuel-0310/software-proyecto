@@ -1,0 +1,359 @@
+@startuml
+set namespaceSeparator ::
+
+abstract class "wedding_planer_1::patterns::observer::invitado_observer.dart::InvitadoObserver" {
+  +void actualizar()
+}
+
+class "wedding_planer_1::patterns::observer::presupuesto_observer.dart::PresupuestoObserver" {
+  +Presupuesto presupuesto
+  +void Function(double)? onPresupuestoActualizado
+  +void actualizar()
+  -void _registrarCambio()
+}
+
+"wedding_planer_1::patterns::observer::presupuesto_observer.dart::PresupuestoObserver" o-- "wedding_planer_1::models::presupuesto.dart::Presupuesto"
+"wedding_planer_1::patterns::observer::invitado_observer.dart::InvitadoObserver" <|-- "wedding_planer_1::patterns::observer::presupuesto_observer.dart::PresupuestoObserver"
+
+class "wedding_planer_1::patterns::observer::notificacion_observer.dart::NotificacionObserver" {
+  -NotificacionService _notificacionService
+  +void actualizar()
+  -String _construirMensaje()
+}
+
+"wedding_planer_1::patterns::observer::notificacion_observer.dart::NotificacionObserver" o-- "wedding_planer_1::services::notificacion_service.dart::NotificacionService"
+"wedding_planer_1::patterns::observer::invitado_observer.dart::InvitadoObserver" <|-- "wedding_planer_1::patterns::observer::notificacion_observer.dart::NotificacionObserver"
+
+abstract class "wedding_planer_1::patterns::observer::invitado_observable.dart::InvitadoObservable" {
+  +void suscribir()
+  +void eliminar()
+  +void notificar()
+}
+
+abstract class "wedding_planer_1::patterns::factory::proveedor_factory.dart::ProveedorFactory" {
+  +Proveedor crearProveedor()
+  {static} +ProveedorFactory segunTipo()
+}
+
+class "wedding_planer_1::patterns::factory::proveedor_fotografia.dart::ProveedorFotografia" {
+  +bool incluyeVideo
+  +int horasCobertura
+  +double calcularCostoFinal()
+  +String descripcionServicio()
+}
+
+"wedding_planer_1::models::proveedor.dart::Proveedor" <|-- "wedding_planer_1::patterns::factory::proveedor_fotografia.dart::ProveedorFotografia"
+
+class "wedding_planer_1::patterns::factory::proveedor_fotografia.dart::FotografiaFactory" {
+  +ProveedorFotografia crearProveedor()
+}
+
+"wedding_planer_1::patterns::factory::proveedor_factory.dart::ProveedorFactory" <|-- "wedding_planer_1::patterns::factory::proveedor_fotografia.dart::FotografiaFactory"
+
+class "wedding_planer_1::patterns::factory::proveedor_catering.dart::ProveedorCatering" {
+  +int numeroDePlatillos
+  +double costoPorPlatillo
+  +double calcularCostoFinal()
+  +String descripcionServicio()
+}
+
+"wedding_planer_1::models::proveedor.dart::Proveedor" <|-- "wedding_planer_1::patterns::factory::proveedor_catering.dart::ProveedorCatering"
+
+class "wedding_planer_1::patterns::factory::proveedor_catering.dart::CateringFactory" {
+  +ProveedorCatering crearProveedor()
+}
+
+"wedding_planer_1::patterns::factory::proveedor_factory.dart::ProveedorFactory" <|-- "wedding_planer_1::patterns::factory::proveedor_catering.dart::CateringFactory"
+
+class "wedding_planer_1::patterns::factory::proveedor_dj.dart::ProveedorDj" {
+  +int horasDeServicio
+  +double calcularCostoFinal()
+  +String descripcionServicio()
+}
+
+"wedding_planer_1::models::proveedor.dart::Proveedor" <|-- "wedding_planer_1::patterns::factory::proveedor_dj.dart::ProveedorDj"
+
+class "wedding_planer_1::patterns::factory::proveedor_dj.dart::DjFactory" {
+  +ProveedorDj crearProveedor()
+}
+
+"wedding_planer_1::patterns::factory::proveedor_factory.dart::ProveedorFactory" <|-- "wedding_planer_1::patterns::factory::proveedor_dj.dart::DjFactory"
+
+"wedding_planer_1::repositories::interfaces::i_invitado_repository.dart::IInvitadoRepository" <|-- "wedding_planer_1::repositories::impl::invitado_repository_impl.dart::InvitadoRepositoryImpl"
+
+abstract class "wedding_planer_1::repositories::interfaces::i_invitado_repository.dart::IInvitadoRepository" {
+  +void guardar()
+  +void eliminar()
+  +List<Invitado> obtenerTodos()
+  +Invitado? obtenerPorId()
+}
+
+abstract class "wedding_planer_1::repositories::interfaces::i_evento_repository.dart::IEventoRepository" {
+  +void guardar()
+  +void eliminar()
+  +List<Evento> obtenerTodos()
+  +Evento? obtenerPorId()
+  +List<Evento> obtenerPorEstado()
+  +List<Evento> obtenerOrdenados()
+}
+
+abstract class "wedding_planer_1::repositories::interfaces::i_proveedor_repository.dart::IProveedorRepository" {
+  +void guardar()
+  +void eliminar()
+  +List<Proveedor> obtenerTodos()
+  +Proveedor? obtenerPorId()
+  +List<Proveedor> obtenerPorTipo()
+}
+
+class "wedding_planer_1::models::boda.dart::Boda" {
+  +String id
+  +String nombrePareja1
+  +String nombrePareja2
+  +DateTime fechaBoda
+  +String lugarCeremonia
+  +String lugarRecepcion
+  +List<Invitado> invitados
+  +List<Proveedor> proveedores
+  +List<Evento> eventos
+  +Presupuesto presupuesto
+  +String titulo
+  +int totalInvitados
+  +int invitadosConfirmados
+  +int diasRestantes
+  +bool yaOcurrio
+  +String toString()
+}
+
+"wedding_planer_1::models::boda.dart::Boda" o-- "wedding_planer_1::models::presupuesto.dart::Presupuesto"
+
+abstract class "wedding_planer_1::models::proveedor.dart::Proveedor" {
+  +String id
+  +String nombre
+  +String contacto
+  +double costoBase
+  +TipoProveedor tipo
+  +double calcularCostoFinal()
+  +String descripcionServicio()
+  +String toString()
+}
+
+class "wedding_planer_1::models::evento.dart::Evento" {
+  +String id
+  +String nombre
+  +String lugar
+  +DateTime fechaHora
+  +int duracionMinutos
+  +EstadoEvento estado
+  +String? descripcion
+  +DateTime fechaFin
+  +bool estaActivo
+  +String toString()
+}
+
+class "wedding_planer_1::models::invitado.dart::Invitado" {
+  +String id
+  +String nombre
+  +String apellido
+  +String correo
+  +String? telefono
+  +int? mesaAsignada
+  +EstadoInvitado estado
+  -List<InvitadoObserver> _observers
+  +String nombreCompleto
+  +void suscribir()
+  +void eliminar()
+  +void notificar()
+  +void cambiarEstado()
+  +String toString()
+}
+
+"wedding_planer_1::patterns::observer::invitado_observable.dart::InvitadoObservable" <|-- "wedding_planer_1::models::invitado.dart::Invitado"
+
+class "wedding_planer_1::models::presupuesto.dart::Presupuesto" {
+  +double presupuestoMaximo
+  +double costoPorInvitadoConfirmado
+  +List<Proveedor> proveedores
+  +List<Invitado> invitados
+  +int totalConfirmados
+  +double costoInvitados
+  +double costoProveedores
+  +double costoTotal
+  +double saldoRestante
+  +bool dentroDelPresupuesto
+  +double porcentajeUtilizado
+  +String toString()
+}
+
+class "wedding_planer_1::main.dart::MyApp" {
+  +State<MyApp> createState()
+}
+
+class "wedding_planer_1::main.dart::_MyAppState" {
+  -IInvitadoRepository _invitadoRepo
+  -IProveedorRepository _proveedorRepo
+  -IEventoRepository _eventoRepo
+  -NotificacionService _notificacionService
+  -InvitadoService _invitadoService
+  -ProveedorService _proveedorService
+  -EventoService _eventoService
+  -PresupuestoService _presupuestoService
+  -BodaController _bodaController
+  -InvitadoController _invitadoController
+  -ProveedorController _proveedorController
+  -PresupuestoController _presupuestoController
+  -Presupuesto _presupuestoBase
+  +void initState()
+  +Widget build()
+}
+
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::repositories::interfaces::i_invitado_repository.dart::IInvitadoRepository"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::repositories::interfaces::i_proveedor_repository.dart::IProveedorRepository"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::repositories::interfaces::i_evento_repository.dart::IEventoRepository"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::services::notificacion_service.dart::NotificacionService"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::services::invitado_service.dart::InvitadoService"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::services::proveedor_service.dart::ProveedorService"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::services::evento_service.dart::EventoService"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::services::presupuesto_service.dart::PresupuestoService"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::controllers::boda_controller.dart::BodaController"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::controllers::invitado_controller.dart::InvitadoController"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::controllers::proveedor_controller.dart::ProveedorController"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController"
+"wedding_planer_1::main.dart::_MyAppState" o-- "wedding_planer_1::models::presupuesto.dart::Presupuesto"
+
+class "wedding_planer_1::controllers::proveedor_controller.dart::ProveedorController" {
+  -ProveedorService _service
+  -List<Proveedor> _proveedores
+  +void Function()? onCambio
+  +List<Proveedor> proveedores
+  +double costoTotal
+  -void _cargar()
+  +void contratar()
+  +void cancelar()
+  +List<Proveedor> porTipo()
+}
+
+"wedding_planer_1::controllers::proveedor_controller.dart::ProveedorController" o-- "wedding_planer_1::services::proveedor_service.dart::ProveedorService"
+
+class "wedding_planer_1::controllers::invitado_controller.dart::InvitadoController" {
+  -InvitadoService _service
+  -List<Invitado> _invitados
+  +void Function()? onCambio
+  +List<Invitado> invitados
+  +Map<EstadoInvitado, int> resumenPorEstado
+  +List<Invitado> confirmados
+  +int total
+  -void _cargar()
+  +void agregar()
+  +void eliminar()
+  +void cambiarEstado()
+}
+
+"wedding_planer_1::controllers::invitado_controller.dart::InvitadoController" o-- "wedding_planer_1::services::invitado_service.dart::InvitadoService"
+
+class "wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController" {
+  -PresupuestoService _presupuestoService
+  -InvitadoService _invitadoService
+  -ProveedorService _proveedorService
+  -Presupuesto? _presupuesto
+  +void Function()? onCambio
+  +Presupuesto? presupuesto
+  +bool estaExcedido
+  +bool cercaDelLimite
+  +double costoTotal
+  +double saldoRestante
+  +double porcentajeUtilizado
+  +String resumenTexto
+  +void recalcular()
+}
+
+"wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController" o-- "wedding_planer_1::services::presupuesto_service.dart::PresupuestoService"
+"wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController" o-- "wedding_planer_1::services::invitado_service.dart::InvitadoService"
+"wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController" o-- "wedding_planer_1::services::proveedor_service.dart::ProveedorService"
+"wedding_planer_1::controllers::presupuesto_controller.dart::PresupuestoController" o-- "wedding_planer_1::models::presupuesto.dart::Presupuesto"
+
+class "wedding_planer_1::controllers::boda_controller.dart::BodaController" {
+  -InvitadoService _invitadoService
+  -ProveedorService _proveedorService
+  -EventoService _eventoService
+  -PresupuestoService _presupuestoService
+  -Boda? _boda
+  +void Function()? onCambio
+  +Boda? boda
+  +String titulo
+  +int diasRestantes
+  +int totalInvitados
+  +int confirmados
+  +void inicializar()
+  +void refrescar()
+  -void _actualizarBoda()
+  +void crearEvento()
+  +void eliminarEvento()
+}
+
+"wedding_planer_1::controllers::boda_controller.dart::BodaController" o-- "wedding_planer_1::services::invitado_service.dart::InvitadoService"
+"wedding_planer_1::controllers::boda_controller.dart::BodaController" o-- "wedding_planer_1::services::proveedor_service.dart::ProveedorService"
+"wedding_planer_1::controllers::boda_controller.dart::BodaController" o-- "wedding_planer_1::services::evento_service.dart::EventoService"
+"wedding_planer_1::controllers::boda_controller.dart::BodaController" o-- "wedding_planer_1::services::presupuesto_service.dart::PresupuestoService"
+"wedding_planer_1::controllers::boda_controller.dart::BodaController" o-- "wedding_planer_1::models::boda.dart::Boda"
+
+class "wedding_planer_1::services::invitado_service.dart::InvitadoService" {
+  -IInvitadoRepository _repository
+  -List<InvitadoObserver> _observadoresGlobales
+  +Invitado agregar()
+  +void eliminar()
+  +List<Invitado> obtenerTodos()
+  +Invitado? obtenerPorId()
+  +void cambiarEstado()
+  +List<Invitado> obtenerConfirmados()
+  +Map<EstadoInvitado, int> resumenPorEstado()
+}
+
+"wedding_planer_1::services::invitado_service.dart::InvitadoService" o-- "wedding_planer_1::repositories::interfaces::i_invitado_repository.dart::IInvitadoRepository"
+
+class "wedding_planer_1::services::presupuesto_service.dart::PresupuestoService" {
+  +double presupuestoMaximo
+  +double costoPorInvitadoConfirmado
+  +Presupuesto calcular()
+  +bool estaExcedido()
+  +bool cercaDelLimite()
+  +String resumenTexto()
+}
+
+abstract class "wedding_planer_1::services::notificacion_service.dart::NotificacionService" {
+  +void enviar()
+}
+
+class "wedding_planer_1::services::notificacion_service.dart::ConsoleNotificacionService" {
+  +void enviar()
+}
+
+"wedding_planer_1::services::notificacion_service.dart::NotificacionService" <|-- "wedding_planer_1::services::notificacion_service.dart::ConsoleNotificacionService"
+
+class "wedding_planer_1::services::evento_service.dart::EventoService" {
+  -IEventoRepository _repository
+  +Evento crear()
+  +void eliminar()
+  +List<Evento> obtenerTodos()
+  +Evento? obtenerPorId()
+  +void actualizarEstado()
+  +List<Evento> obtenerOrdenados()
+  +Evento? proximoEvento()
+}
+
+"wedding_planer_1::services::evento_service.dart::EventoService" o-- "wedding_planer_1::repositories::interfaces::i_evento_repository.dart::IEventoRepository"
+
+class "wedding_planer_1::services::proveedor_service.dart::ProveedorService" {
+  -IProveedorRepository _repository
+  +void contratar()
+  +void cancelar()
+  +List<Proveedor> obtenerTodos()
+  +Proveedor? obtenerPorId()
+  +List<Proveedor> obtenerPorTipo()
+  +Proveedor? masEconomico()
+  +double costoTotalProveedores()
+}
+
+"wedding_planer_1::services::proveedor_service.dart::ProveedorService" o-- "wedding_planer_1::repositories::interfaces::i_proveedor_repository.dart::IProveedorRepository"
+
+
+@enduml

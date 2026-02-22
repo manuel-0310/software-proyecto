@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wedding Planner'),
+        title: const Text('WEDDY'),
         centerTitle: true,
       ),
       body: RefreshIndicator(
