@@ -23,6 +23,7 @@ Nuestro sistema prioriza los siguientes atributos de calidad para asegurar una s
 **Patrones de diseño utilizados:**
 * **Factory Method (Creacional):** Implementado para la instanciación dinámica de servicios contratados (DJ, Catering, Fotografía). Desacopla al controlador de la construcción concreta de estos objetos complejos.
 * **Observer (De Comportamiento):** Implementado para garantizar la reactividad del sistema. Cuando un invitado cambia su estado (ej. de "Pendiente" a "Confirmado"), el módulo financiero (`PresupuestoObserver`) reacciona automáticamente recalculando los costos sin acoplarse directamente a la entidad del invitado.
+
 **UML**:
 ![Diagrama de Clases UML](uml.jpg)
 
