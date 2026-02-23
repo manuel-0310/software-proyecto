@@ -4,7 +4,7 @@
 La planificación de una boda es un desafío logístico y financiero complejo. Tradicionalmente, las parejas y planificadores utilizan herramientas genéricas como Excel o libretas, lo que genera un "alto acoplamiento manual": si un invitado cambia su estado de asistencia, se debe recalcular manualmente el presupuesto, la asignación de mesas y los servicios contratados. Weddy resuelve este problema centralizando la gestión en una plataforma que automatiza el cálculo de presupuestos y la administración de invitados y proveedores, eliminando el estrés operativo y el margen de error.
 
 ## creatividad en la Presentación
-Para ilustrar la problemática y como la applicación sulucionaría este problema se realizó un comic que cuanta la historia de una pareja de novios que está organizando su boda, el cual se encuentra incluído en las siguientes diapositivas:.
+Para ilustrar la problemática y como la applicación solucionaría este problema se realizó un comic que cuanta la historia de una pareja de novios que está organizando su boda, el cual se encuentra incluído en las siguientes diapositivas:.
 [Recurso Creativo aquí](https://www.canva.com/design/DAHCFCQ8Uz4/y20kq2oqmsZ60wzm1IkLrg/view)
 
 ## Fundamentos de Ingeniería de Software
@@ -44,6 +44,26 @@ El código fuente sigue una estructura de Arquitectura Limpia, dividiendo las re
 
 ## Análisis Técnico
 El diseño del software refleja una **alta cohesión**, ya que cada módulo agrupa funciones estrictamente relacionadas con una sola entidad del dominio. Se logró un **bajo acoplamiento** estableciendo una regla arquitectónica estricta: la capa de presentación (UI) nunca se comunica directamente con los servicios ni los repositorios. Todo flujo de datos pasa obligatoriamente por los controladores, apoyándose en la Inversión de Dependencias, lo que permite que el sistema cumpla con los atributos de mantenibilidad y escalabilidad planteados.
+
+## Instrucciones de Ejecución (Cómo correr el proyecto)
+Para probar la aplicación en tu entorno local, sigue estos pasos:
+
+1. Clona este repositorio en tu máquina local.
+2. Abre tu terminal y navega hasta el directorio específico del proyecto Flutter ejecutando:
+
+```bash
+cd wedding_planer_1
+   ```
+Descarga las dependencias necesarias de Flutter:
+
+```Bash
+flutter pub get
+```
+Ejecuta la aplicación (asegúrate de tener un emulador abierto o un dispositivo conectado):
+
+```Bash
+flutter run
+```
 
 ## Créditos y Roles
 * **Daniel Riveros** - Diseño de Experiencia de Usuario (UI/UX), Integración Frontend, y Dirección Creativa
