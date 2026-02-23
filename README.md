@@ -46,5 +46,5 @@ El código fuente sigue una estructura de Arquitectura Limpia, dividiendo las re
 El diseño del software refleja una **alta cohesión**, ya que cada módulo agrupa funciones estrictamente relacionadas con una sola entidad del dominio. Se logró un **bajo acoplamiento** estableciendo una regla arquitectónica estricta: la capa de presentación (UI) nunca se comunica directamente con los servicios ni los repositorios. Todo flujo de datos pasa obligatoriamente por los controladores, apoyándose en la Inversión de Dependencias, lo que permite que el sistema cumpla con los atributos de mantenibilidad y escalabilidad planteados.
 
 ## Créditos y Roles
-* **Daniel Riveros** - Diseño UI de la APP.
-* **Manuel Castillo** - Arquitectura de la APP.
+* **Daniel Riveros** - Diseño de Experiencia de Usuario (UI/UX), Integración Frontend, y Dirección Creativa
+* **Manuel Castillo** - Arquitectura de Software e Implementación de Patrones.
