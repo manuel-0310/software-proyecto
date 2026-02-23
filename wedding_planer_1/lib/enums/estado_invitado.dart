@@ -1,10 +1,13 @@
-/// Representa los posibles estados de asistencia de un invitado a la boda.
+// Archivo para el enum de estado invitado.
+
+
+
 enum EstadoInvitado {
   pendiente,
   confirmado,
   rechazado;
 
-  /// Etiqueta legible para mostrar en la UI.
+  
   String get etiqueta {
     switch (this) {
       case EstadoInvitado.pendiente:

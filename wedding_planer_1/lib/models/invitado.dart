@@ -1,20 +1,41 @@
+// Archivo para el modelo de invitado.
+
+
+
 import '../enums/estado_invitado.dart';
 import '../patterns/observer/invitado_observable.dart';
 import '../patterns/observer/invitado_observer.dart';
 
-/// Modelo que representa a un invitado a la boda.
-///
-/// SRP  → solo contiene datos y estado del invitado.
-/// Observer → implementa [InvitadoObservable] para notificar cambios de estado.
+
+
+
+
 class Invitado implements InvitadoObservable {
+
+// Variable para id.
   final String id;
+
+// Variable para nombre.
   final String nombre;
+
+// Variable para apellido.
   final String apellido;
+
+// Variable para correo.
   final String correo;
+
+// Variable para telefono.
   final String? telefono;
+
+// Variable para mesa asignada.
   final int? mesaAsignada;
+
+// Variable para estado.
   EstadoInvitado estado;
 
+
+
+// Variable para observers.
   final List<InvitadoObserver> _observers = [];
 
   Invitado({
@@ -27,7 +48,7 @@ class Invitado implements InvitadoObservable {
     this.estado = EstadoInvitado.pendiente,
   });
 
-  // ── Observer ──────────────────────────────────────────────────────────────
+  
 
   @override
   void suscribir(InvitadoObserver observer) {
@@ -48,9 +69,9 @@ class Invitado implements InvitadoObservable {
     }
   }
 
-  // ── Lógica de dominio ─────────────────────────────────────────────────────
+  
 
-  /// Cambia el estado del invitado y notifica a todos los observadores.
+  
   void cambiarEstado(EstadoInvitado nuevoEstado) {
     estado = nuevoEstado;
     notificar();

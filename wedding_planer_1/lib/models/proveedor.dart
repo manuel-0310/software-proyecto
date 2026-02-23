@@ -1,15 +1,29 @@
+// Archivo para el modelo de proveedor.
+
+
+
 import '../enums/tipo_proveedor.dart';
 
-/// Clase base abstracta para todos los proveedores de la boda.
-///
-/// OCP → cada tipo de proveedor extiende esta clase sin modificarla.
-/// DIP → los servicios y controllers dependen de [Proveedor], no de subclases.
-/// Factory Method → las subclases concretas son instanciadas por [ProveedorFactory].
+
+
+
+
+
 abstract class Proveedor {
+
+// Variable para id.
   final String id;
+
+// Variable para nombre.
   final String nombre;
+
+// Variable para contacto.
   final String contacto;
+
+// Variable para costo base.
   final double costoBase;
+
+// Variable para tipo.
   final TipoProveedor tipo;
 
   const Proveedor({
@@ -20,11 +34,11 @@ abstract class Proveedor {
     required this.tipo,
   });
 
-  /// Costo final del proveedor.
-  /// Las subclases pueden sobreescribir si aplican tarifas adicionales.
+  
+  
   double calcularCostoFinal();
 
-  /// Descripción del servicio que ofrece este proveedor.
+  
   String descripcionServicio();
 
   @override

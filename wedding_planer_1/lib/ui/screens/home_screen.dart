@@ -1,9 +1,15 @@
+// Archivo para la pantalla de home.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../controllers/boda_controller.dart';
 import '../../utils/formateador_fecha.dart';
 
 class HomeScreen extends StatefulWidget {
+
+// Variable para boda controlador.
   final BodaController bodaController;
 
   const HomeScreen({
@@ -21,17 +27,29 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Si ya la inicializaste en main.dart, esto solo refresca info.
-    // Si NO está inicializada, la UI lo mostrará.
+    
+    
     controller.refrescar();
   }
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para boda.
     final boda = controller.boda;
 
+
+
+// Variable para titulo.
     final titulo = controller.titulo;
+
+
+// Variable para total invitados.
     final totalInvitados = controller.totalInvitados;
+
+
+// Variable para confirmados.
     final confirmados = controller.confirmados;
 
     final cuentaRegresiva = (boda == null)
@@ -116,10 +134,20 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HeaderCard extends StatelessWidget {
+
+// Variable para titulo.
   final String titulo;
+
+// Variable para cuenta regresiva.
   final String cuentaRegresiva;
+
+// Variable para total invitados.
   final int totalInvitados;
+
+// Variable para confirmados.
   final int confirmados;
+
+// Variable para on ver detalle boda.
   final VoidCallback onVerDetalleBoda;
 
   const _HeaderCard({
@@ -132,6 +160,9 @@ class _HeaderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(
@@ -193,8 +224,14 @@ class _HeaderCard extends StatelessWidget {
 }
 
 class _StatChip extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
+
+// Variable para icon.
   final IconData icon;
 
   const _StatChip({
@@ -205,6 +242,9 @@ class _StatChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Container(
@@ -244,9 +284,17 @@ class _StatChip extends StatelessWidget {
 }
 
 class _QuickAccessTile extends StatelessWidget {
+
+// Variable para icon.
   final IconData icon;
+
+// Variable para titulo.
   final String titulo;
+
+// Variable para subtitulo.
   final String subtitulo;
+
+// Variable para on tap.
   final VoidCallback onTap;
 
   const _QuickAccessTile({
@@ -258,6 +306,9 @@ class _QuickAccessTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return ListTile(
@@ -283,7 +334,11 @@ class _QuickAccessTile extends StatelessWidget {
 }
 
 class _WarningBox extends StatelessWidget {
+
+// Variable para texto.
   final String texto;
+
+// Variable para on reintentar.
   final VoidCallback onReintentar;
 
   const _WarningBox({
@@ -293,6 +348,9 @@ class _WarningBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Container(

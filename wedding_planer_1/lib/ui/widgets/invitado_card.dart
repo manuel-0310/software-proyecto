@@ -1,9 +1,17 @@
+// Archivo para el widget de invitado card.
+
+
+
 import 'package:flutter/material.dart';
 import '../../models/invitado.dart';
 import 'estado_badge.dart';
 
 class InvitadoCard extends StatelessWidget {
+
+// Variable para invitado.
   final Invitado invitado;
+
+// Variable para on tap.
   final VoidCallback onTap;
 
   const InvitadoCard({
@@ -14,6 +22,9 @@ class InvitadoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return InkWell(
@@ -39,7 +50,7 @@ class InvitadoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    invitado.nombreCompleto, // ← asumo que existe (lo usas en logs)
+                    invitado.nombreCompleto, 
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),

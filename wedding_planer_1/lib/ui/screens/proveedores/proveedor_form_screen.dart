@@ -1,9 +1,15 @@
+// Archivo para la pantalla de proveedor form.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/proveedor_controller.dart';
 import '../../../enums/tipo_proveedor.dart';
 
 class ProveedorFormScreen extends StatefulWidget {
+
+// Variable para proveedor controlador.
   final ProveedorController proveedorController;
 
   const ProveedorFormScreen({
@@ -16,22 +22,55 @@ class ProveedorFormScreen extends StatefulWidget {
 }
 
 class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
+
+
+// Variable para form key.
   final _formKey = GlobalKey<FormState>();
 
+
+
+// Variable para nombre.
   final _nombre = TextEditingController();
+
+
+// Variable para contacto.
   final _contacto = TextEditingController();
+
+
+// Variable para costo base.
   final _costoBase = TextEditingController();
 
-  // Extras por tipo
+  
+
+
+// Variable para horas dj.
   final _horasDj = TextEditingController(text: '4');
 
+
+
+// Variable para platillos.
   final _platillos = TextEditingController(text: '50');
+
+
+// Variable para costo por platillo.
   final _costoPorPlatillo = TextEditingController(text: '25');
 
+
+
+// Variable para horas foto.
   final _horasFoto = TextEditingController(text: '6');
+
+
+// Variable para incluye video.
   bool _incluyeVideo = false;
 
+
+
+// Variable para tipo.
   TipoProveedor _tipo = TipoProveedor.dj;
+
+
+// Variable para saving.
   bool _saving = false;
 
   ProveedorController get controller => widget.proveedorController;
@@ -116,6 +155,9 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) {
+
+
+// Variable para n.
                         final n = double.tryParse((v ?? '').trim());
                         if (n == null || n <= 0) return 'Ingresa un número válido';
                         return null;
@@ -163,6 +205,9 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
             border: OutlineInputBorder(),
           ),
           validator: (v) {
+
+
+// Variable para n.
             final n = int.tryParse((v ?? '').trim());
             if (n == null || n <= 0) return 'Número inválido';
             return null;
@@ -180,6 +225,9 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
                 border: OutlineInputBorder(),
               ),
               validator: (v) {
+
+
+// Variable para n.
                 final n = int.tryParse((v ?? '').trim());
                 if (n == null || n <= 0) return 'Número inválido';
                 return null;
@@ -194,6 +242,9 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
                 border: OutlineInputBorder(),
               ),
               validator: (v) {
+
+
+// Variable para n.
                 final n = double.tryParse((v ?? '').trim());
                 if (n == null || n <= 0) return 'Número inválido';
                 return null;
@@ -213,6 +264,9 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
                 border: OutlineInputBorder(),
               ),
               validator: (v) {
+
+
+// Variable para n.
                 final n = int.tryParse((v ?? '').trim());
                 if (n == null || n <= 0) return 'Número inválido';
                 return null;
@@ -234,9 +288,18 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
 
     setState(() => _saving = true);
 
+
+
+// Variable para id.
     final id = DateTime.now().millisecondsSinceEpoch.toString();
+
+
+// Variable para costo base.
     final costoBase = double.parse(_costoBase.text.trim());
 
+
+
+// Variable para extras.
     final extras = <String, dynamic>{};
 
     switch (_tipo) {
@@ -267,6 +330,8 @@ class _ProveedorFormScreenState extends State<ProveedorFormScreen> {
 }
 
 class _ExtrasPorTipo extends StatelessWidget {
+
+// Variable para tipo.
   final TipoProveedor tipo;
 
   const _ExtrasPorTipo({required this.tipo});

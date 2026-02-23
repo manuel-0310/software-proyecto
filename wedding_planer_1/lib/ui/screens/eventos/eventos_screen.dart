@@ -1,3 +1,7 @@
+// Archivo para la pantalla de eventos.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/boda_controller.dart';
@@ -7,6 +11,8 @@ import '../../../enums/estado_evento.dart';
 import 'evento_form_screen.dart';
 
 class EventosScreen extends StatefulWidget {
+
+// Variable para boda controlador.
   final BodaController bodaController;
 
   const EventosScreen({
@@ -29,7 +35,13 @@ class _EventosScreenState extends State<EventosScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para boda.
     final boda = controller.boda;
+
+
+// Variable para eventos.
     final eventos = boda?.eventos ?? const <Evento>[];
 
     return Scaffold(
@@ -84,6 +96,9 @@ class _EventosScreenState extends State<EventosScreen> {
                       _EventoTile(
                         evento: eventos[i],
                         onEliminar: () async {
+
+
+// Variable para ok.
                           final ok = await _confirmarEliminar(context);
                           if (!ok) return;
                           controller.eliminarEvento(eventos[i].id);
@@ -124,7 +139,11 @@ class _EventosScreenState extends State<EventosScreen> {
 }
 
 class _EventoTile extends StatelessWidget {
+
+// Variable para evento.
   final Evento evento;
+
+// Variable para on eliminar.
   final VoidCallback onEliminar;
 
   const _EventoTile({
@@ -134,6 +153,9 @@ class _EventoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return ListTile(
@@ -188,8 +210,14 @@ class _EventoTile extends StatelessWidget {
 }
 
 class _EmptyState extends StatelessWidget {
+
+// Variable para text.
   final String text;
+
+// Variable para on reintentar.
   final VoidCallback onReintentar;
+
+// Variable para button text.
   final String buttonText;
 
   const _EmptyState({

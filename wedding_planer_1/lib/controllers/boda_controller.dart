@@ -1,3 +1,7 @@
+// Archivo para el controlador de boda.
+
+
+
 import '../models/boda.dart';
 import '../models/invitado.dart';
 import '../models/proveedor.dart';
@@ -7,20 +11,31 @@ import '../services/proveedor_service.dart';
 import '../services/evento_service.dart';
 import '../services/presupuesto_service.dart';
 
-/// Coordina el estado general de la boda entre todos los servicios.
-/// Actúa como fachada de alto nivel para la pantalla principal.
-///
-/// SRP  → única responsabilidad: ensamblar el modelo [Boda] con datos frescos
-///        de todos los servicios y exponerlo a la pantalla principal.
+
+
+
+
+
 class BodaController {
+
+// Variable para invitado servicio.
   final InvitadoService _invitadoService;
+
+// Variable para proveedor servicio.
   final ProveedorService _proveedorService;
+
+// Variable para evento servicio.
   final EventoService _eventoService;
+
+// Variable para presupuesto servicio.
   final PresupuestoService _presupuestoService;
 
+
+// Variable para boda.
   Boda? _boda;
   Boda? get boda => _boda;
 
+// Variable para on cambio.
   final void Function()? onCambio;
 
   BodaController({
@@ -34,9 +49,9 @@ class BodaController {
         _eventoService = eventoService,
         _presupuestoService = presupuestoService;
 
-  // ── Inicialización ────────────────────────────────────────────────────────
+  
 
-  /// Inicializa la boda con sus datos base. Llamar una vez al arrancar la app.
+  
   void inicializar({
     required String id,
     required String nombrePareja1,
@@ -55,9 +70,9 @@ class BodaController {
     );
   }
 
-  // ── Refresco ──────────────────────────────────────────────────────────────
+  
 
-  /// Reconstruye el modelo [Boda] con el estado actual de todos los servicios.
+  
   void refrescar() {
     if (_boda == null) return;
     _actualizarBoda(
@@ -78,8 +93,17 @@ class BodaController {
     required String lugarCeremonia,
     required String lugarRecepcion,
   }) {
+
+
+// Variable para invitados.
     final List<Invitado> invitados = _invitadoService.obtenerTodos();
+
+
+// Variable para proveedores.
     final List<Proveedor> proveedores = _proveedorService.obtenerTodos();
+
+
+// Variable para eventos.
     final List<Evento> eventos = _eventoService.obtenerOrdenados();
 
     _boda = Boda(
@@ -100,9 +124,9 @@ class BodaController {
     onCambio?.call();
   }
 
-  // ── Accesores de conveniencia ─────────────────────────────────────────────
+  
 
-  // ── Eventos (puente UI → EventoService) ───────────────────────────────────
+  
 
   void crearEvento({
     required String id,

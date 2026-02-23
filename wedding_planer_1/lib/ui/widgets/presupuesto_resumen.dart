@@ -1,7 +1,13 @@
+// Archivo para el widget de presupuesto resumen.
+
+
+
 import 'package:flutter/material.dart';
 import '../../models/presupuesto.dart';
 
 class PresupuestoResumen extends StatelessWidget {
+
+// Variable para presupuesto.
   final Presupuesto presupuesto;
 
   const PresupuestoResumen({
@@ -11,17 +17,35 @@ class PresupuestoResumen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
+
+
+// Variable para maximo.
     final maximo = presupuesto.presupuestoMaximo;
+
+
+// Variable para total.
     final total = presupuesto.costoTotal;
+
+
+// Variable para restante.
     final restante = presupuesto.saldoRestante;
 
-    // Tu modelo devuelve porcentaje 0–100, lo convertimos a 0–1 para la barra
+    
     final porcentaje01 =
         maximo > 0 ? (total / maximo).clamp(0.0, 1.0) : 0.0;
 
+
+
+// Variable para excedido.
     final excedido = !presupuesto.dentroDelPresupuesto;
+
+
+// Variable para cerca del limite.
     final cercaDelLimite = !excedido && presupuesto.porcentajeUtilizado >= 85;
 
     final estadoTexto = excedido
@@ -105,14 +129,21 @@ class PresupuestoResumen extends StatelessWidget {
   }
 
   static String _money(num value) {
+
+
+// Variable para abs.
     final abs = value.abs().toStringAsFixed(0);
-    // Simple, sin intl (como tu proyecto). Si quieres COP con separadores, lo hacemos después.
+    
     return value < 0 ? '-\$$abs' : '\$$abs';
   }
 }
 
 class _MoneyItem extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
 
   const _MoneyItem({
@@ -122,6 +153,9 @@ class _MoneyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Container(
@@ -156,7 +190,11 @@ class _MoneyItem extends StatelessWidget {
 enum _Tone { ok, warning, danger }
 
 class _StatusPill extends StatelessWidget {
+
+// Variable para text.
   final String text;
+
+// Variable para tone.
   final _Tone tone;
 
   const _StatusPill({
@@ -166,9 +204,16 @@ class _StatusPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
+
+// Variable para bg.
     Color bg;
+
+// Variable para border.
     Color border;
 
     switch (tone) {

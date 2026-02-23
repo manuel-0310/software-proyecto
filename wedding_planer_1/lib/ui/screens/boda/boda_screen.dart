@@ -1,3 +1,7 @@
+// Archivo para la pantalla de boda.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/boda_controller.dart';
@@ -5,6 +9,8 @@ import '../../../utils/formateador_fecha.dart';
 import '../../widgets/presupuesto_resumen.dart';
 
 class BodaScreen extends StatefulWidget {
+
+// Variable para boda controlador.
   final BodaController bodaController;
 
   const BodaScreen({
@@ -27,6 +33,9 @@ class _BodaScreenState extends State<BodaScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para boda.
     final boda = controller.boda;
 
     return Scaffold(
@@ -51,8 +60,8 @@ class _BodaScreenState extends State<BodaScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // ✅ Conexión pedida en tu tabla:
-                  // PresupuestoResumen (widget) muestra el bloque embebido
+                  
+                  
                   PresupuestoResumen(presupuesto: boda.presupuesto),
 
                   const SizedBox(height: 16),
@@ -71,9 +80,17 @@ class _BodaScreenState extends State<BodaScreen> {
 }
 
 class _InfoCard extends StatelessWidget {
+
+// Variable para titulo.
   final String titulo;
+
+// Variable para fecha.
   final String fecha;
+
+// Variable para lugar ceremonia.
   final String lugarCeremonia;
+
+// Variable para lugar recepcion.
   final String lugarRecepcion;
 
   const _InfoCard({
@@ -85,6 +102,9 @@ class _InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(
@@ -115,7 +135,11 @@ class _InfoCard extends StatelessWidget {
 }
 
 class _RowInfo extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
 
   const _RowInfo({
@@ -125,6 +149,9 @@ class _RowInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Row(
@@ -152,9 +179,17 @@ class _RowInfo extends StatelessWidget {
 }
 
 class _ResumenRapido extends StatelessWidget {
+
+// Variable para total invitados.
   final int totalInvitados;
+
+// Variable para confirmados.
   final int confirmados;
+
+// Variable para proveedores.
   final int proveedores;
+
+// Variable para eventos.
   final int eventos;
 
   const _ResumenRapido({
@@ -166,6 +201,9 @@ class _ResumenRapido extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(
@@ -201,7 +239,11 @@ class _ResumenRapido extends StatelessWidget {
 }
 
 class _MiniStat extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
 
   const _MiniStat({
@@ -211,6 +253,9 @@ class _MiniStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Container(
@@ -244,6 +289,8 @@ class _MiniStat extends StatelessWidget {
 }
 
 class _EmptyState extends StatelessWidget {
+
+// Variable para on reintentar.
   final VoidCallback onReintentar;
 
   const _EmptyState({

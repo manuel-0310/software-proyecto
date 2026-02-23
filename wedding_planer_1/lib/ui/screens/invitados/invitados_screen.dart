@@ -1,3 +1,7 @@
+// Archivo para la pantalla de invitados.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/invitado_controller.dart';
@@ -10,6 +14,8 @@ import 'invitado_form_screen.dart';
 enum _FiltroInvitados { todos, confirmados, pendientes, rechazados }
 
 class InvitadosScreen extends StatefulWidget {
+
+// Variable para invitado controlador.
   final InvitadoController invitadoController;
 
   const InvitadosScreen({
@@ -23,13 +29,25 @@ class InvitadosScreen extends StatefulWidget {
 
 class _InvitadosScreenState extends State<InvitadosScreen> {
   InvitadoController get controller => widget.invitadoController;
+
+
+// Variable para filtro.
   _FiltroInvitados filtro = _FiltroInvitados.todos;
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para resumen.
     final resumen = controller.resumenPorEstado;
+
+
+// Variable para total.
     final total = controller.total;
 
+
+
+// Variable para invitados.
     final invitados = _filtrar(controller.invitados, filtro);
 
     return Scaffold(
@@ -123,12 +141,24 @@ class _InvitadosScreenState extends State<InvitadosScreen> {
 }
 
 class _Filtros extends StatelessWidget {
+
+// Variable para total.
   final int total;
+
+// Variable para confirmados.
   final int confirmados;
+
+// Variable para pendientes.
   final int pendientes;
+
+// Variable para rechazados.
   final int rechazados;
 
+
+// Variable para filtro.
   final _FiltroInvitados filtro;
+
+// Variable para on changed.
   final ValueChanged<_FiltroInvitados> onChanged;
 
   const _Filtros({
@@ -172,8 +202,14 @@ class _Filtros extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
+
+// Variable para text.
   final String text;
+
+// Variable para selected.
   final bool selected;
+
+// Variable para on tap.
   final VoidCallback onTap;
 
   const _Chip({
@@ -193,7 +229,11 @@ class _Chip extends StatelessWidget {
 }
 
 class _EmptyList extends StatelessWidget {
+
+// Variable para filtro.
   final _FiltroInvitados filtro;
+
+// Variable para on agregar.
   final VoidCallback onAgregar;
 
   const _EmptyList({

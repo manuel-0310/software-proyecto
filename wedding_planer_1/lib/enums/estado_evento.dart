@@ -1,10 +1,13 @@
-/// Ciclo de vida de un evento dentro de la boda (ceremonia, recepción, etc.).
+// Archivo para el enum de estado evento.
+
+
+
 enum EstadoEvento {
   planificado,
   enCurso,
   finalizado;
 
-  /// Etiqueta legible para mostrar en la UI.
+  
   String get etiqueta {
     switch (this) {
       case EstadoEvento.planificado:

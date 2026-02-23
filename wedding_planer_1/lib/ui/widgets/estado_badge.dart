@@ -1,18 +1,35 @@
+// Archivo para el widget de estado badge.
+
+
+
 import 'package:flutter/material.dart';
 import '../../enums/estado_invitado.dart';
 
 class EstadoBadge extends StatelessWidget {
+
+// Variable para estado.
   final EstadoInvitado estado;
 
   const EstadoBadge({super.key, required this.estado});
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
+
+// Variable para bg.
     Color bg;
+
+// Variable para border.
     Color border;
+
+// Variable para text.
     String text;
+
+// Variable para icon.
     IconData icon;
 
     switch (estado) {

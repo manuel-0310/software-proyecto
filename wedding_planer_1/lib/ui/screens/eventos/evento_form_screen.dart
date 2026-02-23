@@ -1,9 +1,15 @@
+// Archivo para la pantalla de evento form.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/boda_controller.dart';
 import '../../../utils/formateador_fecha.dart';
 
 class EventoFormScreen extends StatefulWidget {
+
+// Variable para boda controlador.
   final BodaController bodaController;
 
   const EventoFormScreen({
@@ -16,14 +22,35 @@ class EventoFormScreen extends StatefulWidget {
 }
 
 class _EventoFormScreenState extends State<EventoFormScreen> {
+
+
+// Variable para form key.
   final _formKey = GlobalKey<FormState>();
 
+
+
+// Variable para nombre.
   final _nombre = TextEditingController();
+
+
+// Variable para lugar.
   final _lugar = TextEditingController();
+
+
+// Variable para duracion.
   final _duracion = TextEditingController(text: '60');
+
+
+// Variable para descripcion.
   final _descripcion = TextEditingController();
 
+
+
+// Variable para fecha hora.
   DateTime _fechaHora = DateTime.now().add(const Duration(days: 1));
+
+
+// Variable para saving.
   bool _saving = false;
 
   BodaController get controller => widget.bodaController;
@@ -39,6 +66,9 @@ class _EventoFormScreenState extends State<EventoFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para fecha texto.
     final fechaTexto = FormateadorFecha.fechaYHora(_fechaHora);
 
     return Scaffold(
@@ -106,6 +136,9 @@ class _EventoFormScreenState extends State<EventoFormScreen> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) {
+
+
+// Variable para n.
                         final n = int.tryParse((v ?? '').trim());
                         if (n == null || n <= 0) return 'Número inválido';
                         return null;
@@ -147,6 +180,9 @@ class _EventoFormScreenState extends State<EventoFormScreen> {
   }
 
   Future<void> _pickFechaHora() async {
+
+
+// Variable para ahora.
     final ahora = DateTime.now();
 
     final fecha = await showDatePicker(
@@ -179,7 +215,13 @@ class _EventoFormScreenState extends State<EventoFormScreen> {
 
     setState(() => _saving = true);
 
+
+
+// Variable para id.
     final id = DateTime.now().millisecondsSinceEpoch.toString();
+
+
+// Variable para dur.
     final dur = int.parse(_duracion.text.trim());
 
     controller.crearEvento(

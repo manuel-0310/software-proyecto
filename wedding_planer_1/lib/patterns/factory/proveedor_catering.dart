@@ -1,15 +1,23 @@
+// Archivo para el patron factory de proveedor catering.
+
+
+
 import '../../models/proveedor.dart';
 import '../../enums/tipo_proveedor.dart';
 import 'proveedor_factory.dart';
 
-/// Modelo concreto de un proveedor tipo Catering.
-///
-/// OCP → extiende [Proveedor] sin modificar la clase base.
+
+
+
 class ProveedorCatering extends Proveedor {
-  /// Número de comensales confirmados (determina el costo final).
+  
+
+// Variable para numero de platillos.
   final int numeroDePlatillos;
 
-  /// Costo por platillo adicional al costo base.
+  
+
+// Variable para costo por platillo.
   final double costoPorPlatillo;
 
   const ProveedorCatering({
@@ -21,7 +29,7 @@ class ProveedorCatering extends Proveedor {
     this.costoPorPlatillo = 25.0,
   }) : super(tipo: TipoProveedor.catering);
 
-  /// Tarifa: costoBase + (platillos × costoPorPlatillo).
+  
   @override
   double calcularCostoFinal() =>
       costoBase + (numeroDePlatillos * costoPorPlatillo);
@@ -32,8 +40,8 @@ class ProveedorCatering extends Proveedor {
       'Incluye entrada, plato fuerte y postre.';
 }
 
-/// Fábrica concreta que instancia [ProveedorCatering].
-/// Factory Method → implementa [ProveedorFactory.crearProveedor].
+
+
 class CateringFactory extends ProveedorFactory {
   @override
   ProveedorCatering crearProveedor({

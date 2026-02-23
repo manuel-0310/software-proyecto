@@ -1,21 +1,30 @@
+// Archivo para el patron observer de notificacion.
+
+
+
 import 'invitado_observer.dart';
 import '../../models/invitado.dart';
 import '../../enums/estado_invitado.dart';
 import '../../services/notificacion_service.dart';
 
-/// Observador concreto que reacciona al cambio de estado de un invitado
-/// disparando una notificación dirigida a esa persona.
-///
-/// SRP  → única responsabilidad: enviar la notificación correcta.
-/// OCP  → agrega comportamiento al sistema sin tocar [Invitado].
-/// DIP  → depende de [NotificacionService] (abstracción), no de canal concreto.
+
+
+
+
+
+
 class NotificacionObserver implements InvitadoObserver {
+
+// Variable para notificacion servicio.
   final NotificacionService _notificacionService;
 
   const NotificacionObserver(this._notificacionService);
 
   @override
   void actualizar(Invitado invitado) {
+
+
+// Variable para mensaje.
     final mensaje = _construirMensaje(invitado);
     _notificacionService.enviar(
       destinatario: invitado.correo,

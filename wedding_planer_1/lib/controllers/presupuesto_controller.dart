@@ -1,22 +1,35 @@
+// Archivo para el controlador de presupuesto.
+
+
+
 import '../models/presupuesto.dart';
 import '../services/presupuesto_service.dart';
 import '../services/invitado_service.dart';
 import '../services/proveedor_service.dart';
 
-/// Expone el presupuesto calculado en tiempo real a la UI.
-/// Orquesta [PresupuestoService], [InvitadoService] y [ProveedorService]
-/// para construir el snapshot más reciente del presupuesto.
-///
-/// SRP  → única responsabilidad: mantener actualizado el estado del presupuesto
-///        que consume la pantalla de presupuesto.
+
+
+
+
+
+
 class PresupuestoController {
+
+// Variable para presupuesto servicio.
   final PresupuestoService _presupuestoService;
+
+// Variable para invitado servicio.
   final InvitadoService _invitadoService;
+
+// Variable para proveedor servicio.
   final ProveedorService _proveedorService;
 
+
+// Variable para presupuesto.
   Presupuesto? _presupuesto;
   Presupuesto? get presupuesto => _presupuesto;
 
+// Variable para on cambio.
   final void Function()? onCambio;
 
   PresupuestoController({
@@ -30,10 +43,10 @@ class PresupuestoController {
     recalcular();
   }
 
-  // ── Cálculo ───────────────────────────────────────────────────────────────
+  
 
-  /// Reconstruye el presupuesto con los datos más recientes.
-  /// Debe llamarse cada vez que cambien invitados o proveedores.
+  
+  
   void recalcular() {
     _presupuesto = _presupuestoService.calcular(
       invitados: _invitadoService.obtenerTodos(),
@@ -42,7 +55,7 @@ class PresupuestoController {
     onCambio?.call();
   }
 
-  // ── Consultas para la UI ──────────────────────────────────────────────────
+  
 
   bool get estaExcedido =>
       _presupuesto != null &&

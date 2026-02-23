@@ -1,15 +1,23 @@
+// Archivo para el patron factory de proveedor fotografia.
+
+
+
 import '../../models/proveedor.dart';
 import '../../enums/tipo_proveedor.dart';
 import 'proveedor_factory.dart';
 
-/// Modelo concreto de un proveedor tipo Fotografía.
-///
-/// OCP → extiende [Proveedor] sin modificar la clase base.
+
+
+
 class ProveedorFotografia extends Proveedor {
-  /// Si el paquete incluye sesión de video además de fotografía.
+  
+
+// Variable para incluye video.
   final bool incluyeVideo;
 
-  /// Número de horas de cobertura del evento.
+  
+
+// Variable para horas cobertura.
   final int horasCobertura;
 
   const ProveedorFotografia({
@@ -21,24 +29,33 @@ class ProveedorFotografia extends Proveedor {
     this.incluyeVideo = false,
   }) : super(tipo: TipoProveedor.fotografia);
 
-  /// Tarifa: costoBase + 20% si incluye video + $40 por hora de cobertura.
+  
   @override
   double calcularCostoFinal() {
+
+
+// Variable para tarifa por hora.
     const tarifaPorHora = 40.0;
+
+
+// Variable para recargo por video.
     final recargoPorVideo = incluyeVideo ? costoBase * 0.20 : 0.0;
     return costoBase + recargoPorVideo + (horasCobertura * tarifaPorHora);
   }
 
   @override
   String descripcionServicio() {
+
+
+// Variable para extras.
     final extras = incluyeVideo ? 'Fotografía + Video' : 'Solo fotografía';
     return '$extras — cobertura de $horasCobertura horas. '
         'Entrega de álbum digital y físico.';
   }
 }
 
-/// Fábrica concreta que instancia [ProveedorFotografia].
-/// Factory Method → implementa [ProveedorFactory.crearProveedor].
+
+
 class FotografiaFactory extends ProveedorFactory {
   @override
   ProveedorFotografia crearProveedor({

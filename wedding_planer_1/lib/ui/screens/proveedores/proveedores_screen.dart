@@ -1,3 +1,7 @@
+// Archivo para la pantalla de proveedores.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/proveedor_controller.dart';
@@ -8,6 +12,8 @@ import 'proveedor_detalle_screen.dart';
 import 'proveedor_form_screen.dart';
 
 class ProveedoresScreen extends StatefulWidget {
+
+// Variable para proveedor controlador.
   final ProveedorController proveedorController;
 
   const ProveedoresScreen({
@@ -22,7 +28,9 @@ class ProveedoresScreen extends StatefulWidget {
 class _ProveedoresScreenState extends State<ProveedoresScreen> {
   ProveedorController get controller => widget.proveedorController;
 
-  TipoProveedor? filtroTipo; // null = todos
+
+// Variable para filtro tipo.
+  TipoProveedor? filtroTipo; 
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +38,9 @@ class _ProveedoresScreenState extends State<ProveedoresScreen> {
         ? controller.proveedores
         : controller.porTipo(filtroTipo!);
 
+
+
+// Variable para total.
     final total = controller.costoTotal;
 
     return Scaffold(
@@ -109,7 +120,11 @@ class _ProveedoresScreenState extends State<ProveedoresScreen> {
 }
 
 class _FiltrosTipo extends StatelessWidget {
+
+// Variable para filtro actual.
   final TipoProveedor? filtroActual;
+
+// Variable para on changed.
   final ValueChanged<TipoProveedor?> onChanged;
 
   const _FiltrosTipo({
@@ -140,12 +155,17 @@ class _FiltrosTipo extends StatelessWidget {
 }
 
 class _TotalFooter extends StatelessWidget {
+
+// Variable para total.
   final double total;
 
   const _TotalFooter({required this.total});
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(
@@ -176,7 +196,11 @@ class _TotalFooter extends StatelessWidget {
 }
 
 class _EmptyProveedores extends StatelessWidget {
+
+// Variable para filtro tipo.
   final TipoProveedor? filtroTipo;
+
+// Variable para on contratar.
   final VoidCallback onContratar;
 
   const _EmptyProveedores({

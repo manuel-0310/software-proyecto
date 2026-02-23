@@ -1,8 +1,16 @@
+// Archivo para el widget de proveedor card.
+
+
+
 import 'package:flutter/material.dart';
 import '../../models/proveedor.dart';
 
 class ProveedorCard extends StatelessWidget {
+
+// Variable para proveedor.
   final Proveedor proveedor;
+
+// Variable para on tap.
   final VoidCallback onTap;
 
   const ProveedorCard({
@@ -13,7 +21,13 @@ class ProveedorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
+
+
+// Variable para costo.
     final costo = proveedor.calcularCostoFinal();
 
     return InkWell(
@@ -83,6 +97,9 @@ class ProveedorCard extends StatelessWidget {
   static String _money(num value) => '\$${value.toStringAsFixed(0)}';
 
   static IconData _iconoPorTipo(dynamic tipo) {
+
+
+// Variable para name.
     final name = tipo.toString().toLowerCase();
     if (name.contains('dj')) return Icons.music_note_rounded;
     if (name.contains('catering')) return Icons.restaurant_rounded;

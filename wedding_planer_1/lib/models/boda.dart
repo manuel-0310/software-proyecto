@@ -1,22 +1,46 @@
+// Archivo para el modelo de boda.
+
+
+
 import 'invitado.dart';
 import 'proveedor.dart';
 import 'evento.dart';
 import 'presupuesto.dart';
 
-/// Entidad raíz del sistema. Agrupa todos los componentes de una boda.
-///
-/// SRP → solo representa los datos de la boda y expone accesores básicos.
-///       La lógica de negocio vive en los servicios correspondientes.
+
+
+
+
 class Boda {
+
+// Variable para id.
   final String id;
+
+// Variable para nombre pareja1.
   final String nombrePareja1;
+
+// Variable para nombre pareja2.
   final String nombrePareja2;
+
+// Variable para fecha boda.
   final DateTime fechaBoda;
+
+// Variable para lugar ceremonia.
   final String lugarCeremonia;
+
+// Variable para lugar recepcion.
   final String lugarRecepcion;
+
+// Variable para invitados.
   final List<Invitado> invitados;
+
+// Variable para proveedores.
   final List<Proveedor> proveedores;
+
+// Variable para eventos.
   final List<Evento> eventos;
+
+// Variable para presupuesto.
   final Presupuesto presupuesto;
 
   const Boda({
@@ -32,7 +56,7 @@ class Boda {
     required this.presupuesto,
   });
 
-  // ── Accesores de conveniencia ─────────────────────────────────────────────
+  
 
   String get titulo => '$nombrePareja1 & $nombrePareja2';
 

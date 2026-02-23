@@ -1,9 +1,17 @@
+// Archivo para la pantalla de proveedor detalle.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/proveedor_controller.dart';
 
 class ProveedorDetalleScreen extends StatefulWidget {
+
+// Variable para proveedor controlador.
   final ProveedorController proveedorController;
+
+// Variable para proveedor id.
   final String proveedorId;
 
   const ProveedorDetalleScreen({
@@ -24,7 +32,13 @@ class _ProveedorDetalleScreenState extends State<ProveedorDetalleScreen> {
     final proveedor =
         controller.proveedores.firstWhere((p) => p.id == widget.proveedorId);
 
+
+
+// Variable para costo final.
     final costoFinal = proveedor.calcularCostoFinal();
+
+
+// Variable para descripcion.
     final descripcion = proveedor.descripcionServicio();
 
     return Scaffold(
@@ -35,6 +49,9 @@ class _ProveedorDetalleScreenState extends State<ProveedorDetalleScreen> {
           IconButton(
             tooltip: 'Cancelar contrato',
             onPressed: () async {
+
+
+// Variable para ok.
               final ok = await _confirmarCancelar(context);
               if (!ok) return;
 
@@ -112,13 +129,20 @@ class _ProveedorDetalleScreenState extends State<ProveedorDetalleScreen> {
 }
 
 class _Row extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
 
   const _Row({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Row(

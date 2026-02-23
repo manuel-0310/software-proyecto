@@ -1,3 +1,7 @@
+// Archivo para la pantalla de invitado detalle.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/invitado_controller.dart';
@@ -5,7 +9,11 @@ import '../../../enums/estado_invitado.dart';
 import '../../widgets/estado_badge.dart';
 
 class InvitadoDetalleScreen extends StatefulWidget {
+
+// Variable para invitado controlador.
   final InvitadoController invitadoController;
+
+// Variable para invitado id.
   final String invitadoId;
 
   const InvitadoDetalleScreen({
@@ -33,6 +41,9 @@ class _InvitadoDetalleScreenState extends State<InvitadoDetalleScreen> {
           IconButton(
             tooltip: 'Eliminar',
             onPressed: () async {
+
+
+// Variable para ok.
               final ok = await _confirmarEliminar(context);
               if (!ok) return;
 
@@ -140,7 +151,11 @@ class _InvitadoDetalleScreenState extends State<InvitadoDetalleScreen> {
 }
 
 class _RowInfo extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
 
   const _RowInfo({
@@ -150,6 +165,9 @@ class _RowInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Row(

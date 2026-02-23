@@ -1,11 +1,14 @@
-/// Define los tipos de proveedor disponibles para contratar en la boda.
-/// Usado por el Factory Method para instanciar la subclase correcta.
+// Archivo para el enum de tipo proveedor.
+
+
+
+
 enum TipoProveedor {
   dj,
   catering,
   fotografia;
 
-  /// Nombre descriptivo del tipo de proveedor.
+  
   String get nombre {
     switch (this) {
       case TipoProveedor.dj:

@@ -1,16 +1,22 @@
+// Archivo para la implementacion del repositorio de evento.
+
+
+
 import '../../models/evento.dart';
 import '../../enums/estado_evento.dart';
 import '../../data/local/evento_datasource.dart';
 import '../interfaces/i_evento_repository.dart';
 
-/// Implementación concreta del repositorio de eventos.
-/// Usa [EventoDatasource] como fuente de datos local (en memoria).
-///
-/// DIP  → implementa [IEventoRepository]; el servicio opera sobre la
-///        interfaz y nunca conoce esta clase concreta.
-/// SRP  → única responsabilidad: traducir llamadas del servicio en
-///        operaciones sobre el datasource.
+
+
+
+
+
+
+
 class EventoRepositoryImpl implements IEventoRepository {
+
+// Variable para datasource.
   final EventoDatasource _datasource;
 
   const EventoRepositoryImpl({required EventoDatasource datasource})

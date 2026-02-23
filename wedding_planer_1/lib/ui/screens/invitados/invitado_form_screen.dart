@@ -1,8 +1,14 @@
+// Archivo para la pantalla de invitado form.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/invitado_controller.dart';
 
 class InvitadoFormScreen extends StatefulWidget {
+
+// Variable para invitado controlador.
   final InvitadoController invitadoController;
 
   const InvitadoFormScreen({
@@ -15,14 +21,35 @@ class InvitadoFormScreen extends StatefulWidget {
 }
 
 class _InvitadoFormScreenState extends State<InvitadoFormScreen> {
+
+
+// Variable para form key.
   final _formKey = GlobalKey<FormState>();
 
+
+
+// Variable para nombre.
   final _nombre = TextEditingController();
+
+
+// Variable para apellido.
   final _apellido = TextEditingController();
+
+
+// Variable para correo.
   final _correo = TextEditingController();
+
+
+// Variable para telefono.
   final _telefono = TextEditingController();
+
+
+// Variable para mesa.
   final _mesa = TextEditingController();
 
+
+
+// Variable para saving.
   bool _saving = false;
 
   InvitadoController get controller => widget.invitadoController;
@@ -86,6 +113,9 @@ class _InvitadoFormScreenState extends State<InvitadoFormScreen> {
                         border: OutlineInputBorder(),
                       ),
                       validator: (v) {
+
+
+// Variable para s.
                         final s = (v ?? '').trim();
                         if (s.isEmpty) return 'Obligatorio';
                         if (!s.contains('@')) return 'Correo inválido';
@@ -142,8 +172,14 @@ class _InvitadoFormScreenState extends State<InvitadoFormScreen> {
 
     setState(() => _saving = true);
 
+
+
+// Variable para id.
     final id = DateTime.now().millisecondsSinceEpoch.toString();
 
+
+
+// Variable para mesa parsed.
     final mesaParsed = int.tryParse(_mesa.text.trim());
 
     controller.agregar(

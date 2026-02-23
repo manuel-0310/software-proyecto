@@ -1,14 +1,26 @@
+// Archivo para el modelo de presupuesto.
+
+
+
 import 'invitado.dart';
 import 'proveedor.dart';
 
-/// Modelo que representa el presupuesto total de la boda.
-///
-/// SRP  → única responsabilidad: agregar costos y exponer totales.
-/// Observer → actúa como receptor: se recalcula cuando un invitado cambia estado.
+
+
+
+
 class Presupuesto {
+
+// Variable para presupuesto maximo.
   final double presupuestoMaximo;
+
+// Variable para costo por invitado confirmado.
   final double costoPorInvitadoConfirmado;
+
+// Variable para proveedores.
   final List<Proveedor> proveedores;
+
+// Variable para invitados.
   final List<Invitado> invitados;
 
   const Presupuesto({
@@ -18,7 +30,7 @@ class Presupuesto {
     required this.invitados,
   });
 
-  // ── Cálculos ──────────────────────────────────────────────────────────────
+  
 
   int get totalConfirmados =>
       invitados.where((i) => i.estado.name == 'confirmado').length;

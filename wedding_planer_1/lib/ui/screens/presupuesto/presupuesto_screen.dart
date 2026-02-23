@@ -1,3 +1,7 @@
+// Archivo para la pantalla de presupuesto.
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../../controllers/presupuesto_controller.dart';
@@ -5,6 +9,8 @@ import '../../../models/presupuesto.dart';
 import '../../widgets/presupuesto_resumen.dart';
 
 class PresupuestoScreen extends StatefulWidget {
+
+// Variable para presupuesto controlador.
   final PresupuestoController presupuestoController;
 
   const PresupuestoScreen({
@@ -27,12 +33,30 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para p.
     final Presupuesto? p = controller.presupuesto;
 
+
+
+// Variable para total.
     final total = controller.costoTotal;
+
+
+// Variable para restante.
     final restante = controller.saldoRestante;
-    final porcentaje = controller.porcentajeUtilizado; // 0–100+
+
+
+// Variable para porcentaje.
+    final porcentaje = controller.porcentajeUtilizado; 
+
+
+// Variable para excedido.
     final excedido = controller.estaExcedido;
+
+
+// Variable para cerca.
     final cerca = controller.cercaDelLimite;
 
     return Scaffold(
@@ -50,11 +74,11 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
                 onReintentar: () => setState(() => controller.recalcular()),
               ),
             ] else ...[
-              // ✅ Widget reutilizable
+              
               PresupuestoResumen(presupuesto: p),
               const SizedBox(height: 14),
 
-              // ✅ Alertas cerca/excedido
+              
               if (excedido || cerca)
                 _AlertCard(
                   type: excedido ? _AlertType.danger : _AlertType.warning,
@@ -64,7 +88,7 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
 
               const SizedBox(height: 14),
 
-              // ✅ Desglose invitados vs proveedores (sale del modelo Presupuesto)
+              
               _BreakdownCard(
                 costoInvitados: p.costoInvitados,
                 costoProveedores: p.costoProveedores,
@@ -73,7 +97,7 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
 
               const SizedBox(height: 14),
 
-              // ✅ KPIs adicionales (saldo y %)
+              
               _KpiRow(
                 saldoRestante: restante,
                 porcentajeUtilizado: porcentaje,
@@ -81,7 +105,7 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
 
               const SizedBox(height: 14),
 
-              // ✅ Texto resumen del service (lo que pide tu tabla)
+              
               _ResumenTexto(texto: controller.resumenTexto),
             ],
           ],
@@ -92,6 +116,8 @@ class _PresupuestoScreenState extends State<PresupuestoScreen> {
 }
 
 class _EmptyBudget extends StatelessWidget {
+
+// Variable para on reintentar.
   final VoidCallback onReintentar;
 
   const _EmptyBudget({required this.onReintentar});
@@ -130,8 +156,14 @@ class _EmptyBudget extends StatelessWidget {
 enum _AlertType { warning, danger }
 
 class _AlertCard extends StatelessWidget {
+
+// Variable para type.
   final _AlertType type;
+
+// Variable para title.
   final String title;
+
+// Variable para message.
   final String message;
 
   const _AlertCard({
@@ -142,6 +174,9 @@ class _AlertCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     final bg = type == _AlertType.danger
@@ -190,8 +225,14 @@ class _AlertCard extends StatelessWidget {
 }
 
 class _BreakdownCard extends StatelessWidget {
+
+// Variable para costo invitados.
   final double costoInvitados;
+
+// Variable para costo proveedores.
   final double costoProveedores;
+
+// Variable para total.
   final double total;
 
   const _BreakdownCard({
@@ -202,9 +243,18 @@ class _BreakdownCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
+
+
+// Variable para inv pct.
     final invPct = total <= 0 ? 0.0 : (costoInvitados / total).clamp(0.0, 1.0);
+
+
+// Variable para prov pct.
     final provPct = total <= 0 ? 0.0 : (costoProveedores / total).clamp(0.0, 1.0);
 
     return Card(
@@ -266,8 +316,14 @@ class _BreakdownCard extends StatelessWidget {
 }
 
 class _LineItem extends StatelessWidget {
+
+// Variable para label.
   final String label;
+
+// Variable para value.
   final String value;
+
+// Variable para percent.
   final double percent;
 
   const _LineItem({
@@ -278,6 +334,9 @@ class _LineItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Column(
@@ -312,8 +371,12 @@ class _LineItem extends StatelessWidget {
 }
 
 class _KpiRow extends StatelessWidget {
+
+// Variable para saldo restante.
   final double saldoRestante;
-  final double porcentajeUtilizado; // 0–100+
+
+// Variable para porcentaje utilizado.
+  final double porcentajeUtilizado; 
 
   const _KpiRow({
     required this.saldoRestante,
@@ -344,14 +407,23 @@ class _KpiRow extends StatelessWidget {
   }
 
   static String _money(num value) {
+
+
+// Variable para abs.
     final abs = value.abs().toStringAsFixed(0);
     return value < 0 ? '-\$$abs' : '\$$abs';
   }
 }
 
 class _KpiCard extends StatelessWidget {
+
+// Variable para title.
   final String title;
+
+// Variable para value.
   final String value;
+
+// Variable para icon.
   final IconData icon;
 
   const _KpiCard({
@@ -362,6 +434,9 @@ class _KpiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(
@@ -410,12 +485,17 @@ class _KpiCard extends StatelessWidget {
 }
 
 class _ResumenTexto extends StatelessWidget {
+
+// Variable para texto.
   final String texto;
 
   const _ResumenTexto({required this.texto});
 
   @override
   Widget build(BuildContext context) {
+
+
+// Variable para theme.
     final theme = Theme.of(context);
 
     return Card(

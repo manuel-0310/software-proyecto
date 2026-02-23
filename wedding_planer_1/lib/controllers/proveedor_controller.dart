@@ -1,3 +1,7 @@
+// Archivo para el controlador de proveedor.
+
+
+
 import '../models/proveedor.dart';
 import '../enums/tipo_proveedor.dart';
 import '../services/proveedor_service.dart';
@@ -6,18 +10,24 @@ import '../patterns/factory/proveedor_dj.dart';
 import '../patterns/factory/proveedor_catering.dart';
 import '../patterns/factory/proveedor_fotografia.dart';
 
-/// Intermediario entre la UI y [ProveedorService].
-/// Es el punto de integración del patrón Factory Method:
-/// la UI solo indica el tipo y los datos; el controller crea el objeto correcto.
-///
-/// SRP  → coordina la UI con la lógica de proveedores.
-/// DIP  → depende de [ProveedorService] y [ProveedorFactory] (abstracciones).
+
+
+
+
+
+
 class ProveedorController {
+
+// Variable para servicio.
   final ProveedorService _service;
 
+
+
+// Variable para proveedores.
   List<Proveedor> _proveedores = [];
   List<Proveedor> get proveedores => List.unmodifiable(_proveedores);
 
+// Variable para on cambio.
   final void Function()? onCambio;
 
   ProveedorController({
@@ -32,10 +42,10 @@ class ProveedorController {
     onCambio?.call();
   }
 
-  // ── Contratación vía Factory Method ───────────────────────────────────────
+  
 
-  /// Contrata un proveedor usando la Factory correcta según [tipo].
-  /// Los parámetros extra se pasan como mapa para mantener firma genérica.
+  
+  
   void contratar({
     required String id,
     required String nombre,
@@ -44,7 +54,12 @@ class ProveedorController {
     required TipoProveedor tipo,
     Map<String, dynamic> extras = const {},
   }) {
+
+
+// Variable para factory.
     final factory = ProveedorFactory.segunTipo(tipo);
+
+// Variable para proveedor.
     late Proveedor proveedor;
 
     switch (tipo) {
@@ -80,13 +95,13 @@ class ProveedorController {
     _cargar();
   }
 
-  /// Cancela el contrato con el proveedor identificado por [id].
+  
   void cancelar(String id) {
     _service.cancelar(id);
     _cargar();
   }
 
-  // ── Consultas para la UI ──────────────────────────────────────────────────
+  
 
   List<Proveedor> porTipo(TipoProveedor tipo) =>
       _service.obtenerPorTipo(tipo);

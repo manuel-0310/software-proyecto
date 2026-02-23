@@ -1,15 +1,33 @@
+// Archivo para el modelo de evento.
+
+
+
 import '../enums/estado_evento.dart';
 
-/// Representa un evento dentro de la boda (ej: ceremonia, recepción, cena).
-///
-/// SRP → solo almacena información y estado del evento. Sin lógica de negocio.
+
+
+
 class Evento {
+
+// Variable para id.
   final String id;
+
+// Variable para nombre.
   final String nombre;
+
+// Variable para lugar.
   final String lugar;
+
+// Variable para fecha hora.
   final DateTime fechaHora;
+
+// Variable para duracion minutos.
   final int duracionMinutos;
+
+// Variable para estado.
   EstadoEvento estado;
+
+// Variable para descripcion.
   final String? descripcion;
 
   Evento({
