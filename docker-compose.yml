@@ -12,6 +12,7 @@ services:
       - SECRET_KEY=weddy_secret_key_2024
       - JAEGER_HOST=jaeger
       - JAEGER_ENABLED=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318/v1/traces
     depends_on:
       jaeger:
         condition: service_started
