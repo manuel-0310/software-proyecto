@@ -1,0 +1,412 @@
+{
+  "info": {
+    "_postman_id": "7f3e8d2a-1b4c-4e9f-a5d0-6c8b2e7f3d1a",
+    "name": "Weddy API",
+    "description": "Colección de pruebas para la API Weddy. Ejecutar con Newman en CI/CD.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invitado_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "id": "2a4b6c8d-0e1f-3a5b-7c9d-1e3f5a7b9c0d",
+      "item": [
+        {
+          "name": "Login Exitoso",
+          "id": "aabb1122-cc33-dd44-ee55-ff6677889900",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"weddy2024\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Tiene access_token', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('access_token');",
+                  "    pm.collectionVariables.set('token', json.access_token);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Fallido",
+          "id": "bbcc2233-dd44-ee55-ff66-007788990011",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password_incorrecto\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 401 para credenciales incorrectas', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Invitados",
+      "id": "1b3d5f7a-9c0e-2d4f-6a8c-0b2d4f6a8c0e",
+      "item": [
+        {
+          "name": "Listar Invitados",
+          "id": "ccdd3344-ee55-ff66-0077-1188990011aa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/invitados/",
+              "host": ["{{baseUrl}}"],
+              "path": ["invitados", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('La respuesta es un array', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear Invitado",
+          "id": "ddee4455-ff66-0077-1188-2299001122bb",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Test Newman\",\n  \"email\": \"newman@test.com\",\n  \"estado\": \"pendiente\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/invitados/",
+              "host": ["{{baseUrl}}"],
+              "path": ["invitados", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 201', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "pm.test('Tiene campo id', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('id');",
+                  "    pm.collectionVariables.set('invitado_id', json.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Actualizar Invitado",
+          "id": "eeff5566-0077-1188-2299-33aa001133cc",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"confirmado\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/invitados/{{invitado_id}}/estado",
+              "host": ["{{baseUrl}}"],
+              "path": ["invitados", "{{invitado_id}}", "estado"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Estado actualizado a confirmado', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.estado).to.eql('confirmado');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Crear Sin Auth",
+          "id": "ff006677-1188-2299-33aa-44bb1122ddee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Sin Autorización\",\n  \"email\": \"noauth@test.com\",\n  \"estado\": \"pendiente\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/invitados/",
+              "host": ["{{baseUrl}}"],
+              "path": ["invitados", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 401 o 403 sin token', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Eliminar Invitado",
+          "id": "00117788-2299-33aa-44bb-55cc1133eeff",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invitados/{{invitado_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["invitados", "{{invitado_id}}"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200 o 204 al eliminar', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Presupuesto",
+      "id": "9e8d7c6b-5a4f-3e2d-1c0b-9a8f7e6d5c4b",
+      "item": [
+        {
+          "name": "Ver Presupuesto",
+          "id": "11228899-33aa-44bb-55cc-66dd1144ffaa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/presupuesto/",
+              "host": ["{{baseUrl}}"],
+              "path": ["presupuesto", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Tiene campo presupuesto_total', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('presupuesto_total');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Configurar Presupuesto",
+          "id": "2233aa00-44bb-55cc-66dd-77ee1155bbcc",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"presupuesto_total\": 20000.0,\n  \"costo_por_invitado_confirmado\": 50.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/presupuesto/configurar",
+              "host": ["{{baseUrl}}"],
+              "path": ["presupuesto", "configurar"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('presupuesto_total actualizado', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.presupuesto_total).to.eql(20000.0);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "id": "3f5e7d9c-1b3a-5f7e-9d1c-3b5a7f9e1d3c",
+      "item": [
+        {
+          "name": "Health Check",
+          "id": "3344bb11-55cc-66dd-77ee-88ff2266ccdd",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Status ok en body', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.status).to.eql('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# Network Policy: restricción del tráfico de red en el namespace weddy
+# Solo permite tráfico entrante al backend desde pods etiquetados como clientes
+# y tráfico saliente al stack de observabilidad.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: weddy-backend-netpol
+  namespace: weddy
+spec:
+  podSelector:
+    matchLabels:
+      app: weddy-backend
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress:
+    # Permite tráfico HTTP desde cualquier pod en el mismo namespace
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8000
+    # Permite tráfico desde el namespace de monitoreo (Prometheus scraping)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
+      ports:
+        - protocol: TCP
+          port: 8000
+
+  egress:
+    # Permite resolver DNS
+    - ports:
+        - protocol: UDP
+          port: 53
+    # Permite enviar trazas a Jaeger (OTLP HTTP)
+    - to:
+        - podSelector:
+            matchLabels:
+              app: weddy-jaeger
+      ports:
+        - protocol: TCP
+          port: 4318
+    # Permite tráfico general de salida para actualizaciones / pip
+    - ports:
+        - protocol: TCP
+          port: 443

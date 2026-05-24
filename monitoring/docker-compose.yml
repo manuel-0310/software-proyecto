@@ -1,0 +1,14 @@
+services:
+  # Prometheus y Grafana corren via Homebrew en el host (brew services).
+  # Docker solo levanta Jaeger para el tracing distribuido.
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.57
+    container_name: weddy-jaeger
+    ports:
+      - "16686:16686"   # UI
+      - "4317:4317"     # OTLP gRPC
+      - "4318:4318"     # OTLP HTTP
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    restart: unless-stopped

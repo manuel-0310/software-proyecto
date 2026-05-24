@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weddy-backend
+  namespace: weddy
+  labels:
+    app: weddy-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: weddy-backend
+  template:
+    metadata:
+      labels:
+        app: weddy-backend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: weddy-backend-sa
+      # Contexto de seguridad: ejecutar como usuario no-root
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: weddy-backend
+          image: weddy-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: weddy-secret
+                  key: SECRET_KEY
+            - name: JAEGER_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  name: weddy-secret
+                  key: JAEGER_ENABLED
+            - name: JAEGER_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: weddy-secret
+                  key: JAEGER_HOST
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 3
+          # Contexto de seguridad del contenedor
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL

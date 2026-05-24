@@ -1,0 +1,41 @@
+# RBAC: ServiceAccount, Role y RoleBinding para el backend Weddy
+# Principio de mínimo privilegio: el pod solo puede leer sus propios ConfigMaps y Secrets
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: weddy-backend-sa
+  namespace: weddy
+  labels:
+    app: weddy-backend
+automountServiceAccountToken: false
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: weddy-backend-role
+  namespace: weddy
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["weddy-config"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["weddy-secret"]
+    verbs: ["get"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: weddy-backend-rolebinding
+  namespace: weddy
+subjects:
+  - kind: ServiceAccount
+    name: weddy-backend-sa
+    namespace: weddy
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: weddy-backend-role

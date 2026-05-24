@@ -1,0 +1,1 @@
+ /Users/manuelcastillo/Proyectos\ Personales/GitHub/GitHub/software-proyecto/client/build/783c26abd743254b4e90235f3bf18e69/dart_build_result.json: 

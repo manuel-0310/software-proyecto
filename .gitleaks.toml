@@ -1,0 +1,29 @@
+# Configuración de Gitleaks para detección de secretos en el repositorio Weddy
+title = "Weddy Gitleaks Config"
+
+# Regla personalizada: detecta posibles JWT secret keys en el código
+[[rules]]
+id = "jwt-secret-key"
+description = "Posible clave secreta JWT hardcoded"
+regex = '''(?i)(jwt[_-]?secret|secret[_-]?key|signing[_-]?key)\s*[=:]\s*["\']([a-zA-Z0-9_\-\.]{16,})["\']'''
+tags = ["secret", "jwt", "key"]
+severity = "WARNING"
+
+# Regla personalizada: detecta variables de entorno con valores de contraseña
+[[rules]]
+id = "hardcoded-password-env"
+description = "Contraseña hardcoded en variable de entorno"
+regex = '''(?i)(password|passwd|pwd)\s*[=:]\s*["\']([^\s"\']{8,})["\']'''
+tags = ["secret", "password"]
+severity = "WARNING"
+
+# Permite credenciales de prueba ficticias en archivos de test y configuración de CI
+[allowlist]
+description = "Ignora credenciales de demostración en archivos de prueba y colecciones de API"
+paths = [
+  '''services[/\\]tests[/\\].*''',
+  '''tests[/\\]api[/\\].*\.json$''',
+  '''tests[/\\]load[/\\].*\.js$''',
+  '''\.github[/\\]workflows[/\\].*\.yml$''',
+  '''docker-compose\.yml$''',
+]

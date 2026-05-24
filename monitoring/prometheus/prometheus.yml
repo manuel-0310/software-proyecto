@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Weddy API (FastAPI corriendo en el host o como contenedor Docker)
+  # En macOS/Windows Docker usa host.docker.internal.
+  # En Linux, reemplaza por la IP del host (ej. 172.17.0.1) o el nombre del servicio Docker.
+  - job_name: "weddy-api"
+    static_configs:
+      - targets: ["weddy-backend:8000"]
+    metrics_path: "/metrics"
+    scrape_interval: 10s
+
+  # Prometheus se auto-monitorea
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]

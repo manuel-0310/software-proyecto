@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: weddy-backend-svc
+  namespace: weddy
+  labels:
+    app: weddy-backend
+spec:
+  selector:
+    app: weddy-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+      protocol: TCP
+  type: ClusterIP
+
+---
+# Expone la API al exterior en entornos de desarrollo/staging
+apiVersion: v1
+kind: Service
+metadata:
+  name: weddy-backend-nodeport
+  namespace: weddy
+  labels:
+    app: weddy-backend
+spec:
+  selector:
+    app: weddy-backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+      nodePort: 30080
+  type: NodePort

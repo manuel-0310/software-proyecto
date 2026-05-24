@@ -1,0 +1,14 @@
+{
+  "name": "weddy-cypress-tests",
+  "version": "1.0.0",
+  "description": "Pruebas de GUI/E2E con Cypress para la API Weddy",
+  "scripts": {
+    "test": "cypress run",
+    "test:headed": "cypress open",
+    "test:ci": "cypress run --reporter junit --reporter-options mochaFile=cypress/results/junit-[hash].xml"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "mocha-junit-reporter": "^2.2.1"
+  }
+}
