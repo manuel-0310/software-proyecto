@@ -183,6 +183,12 @@ jobs:
       - name: Instalar Semgrep
         run: pip install semgrep
 
+      - name: Descargar reporte de cobertura
+        uses: actions/download-artifact@v4
+        with:
+          name: pytest-reports
+          path: services/reports/
+
       - name: Ejecutar Semgrep
         run: |
           mkdir -p reports
