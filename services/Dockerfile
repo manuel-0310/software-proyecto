@@ -10,12 +10,11 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# Instala dependencias antes de copiar el código (capa cacheada)
+# Instala dependencias y crea usuario no-root en una sola capa
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Crea usuario no-root para ejecutar la aplicación
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+RUN pip install --no-cache-dir --only-binary :all: -r requirements.txt \
+    && addgroup --system appgroup \
+    && adduser --system --ingroup appgroup appuser
 
 COPY . .
 

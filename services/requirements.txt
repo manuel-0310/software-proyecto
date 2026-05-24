@@ -8,9 +8,8 @@ opentelemetry-api==1.24.0
 opentelemetry-sdk==1.24.0
 opentelemetry-instrumentation-fastapi==0.45b0
 opentelemetry-exporter-otlp-proto-http==1.24.0
-opentelemetry-exporter-otlp
-opentelemetry-instrumentation-fastapi
-opentelemetry-instrumentation-requests
-opentelemetry-instrumentation-httpx
-passlib[bcrypt]>=1.7.4
-python-multipart>=0.0.6
+opentelemetry-exporter-otlp==1.24.0
+opentelemetry-instrumentation-requests==0.45b0
+opentelemetry-instrumentation-httpx==0.45b0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.20
