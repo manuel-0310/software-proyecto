@@ -332,6 +332,7 @@ jobs:
           rules_file_name: '.zap/rules.tsv'
           allow_issue_writing: false
           fail_action: false
+          artifact_name: zap-scan   # evita el nombre por defecto "zap_scan" que v4 rechaza
         continue-on-error: true
 
       - name: Subir reporte ZAP
