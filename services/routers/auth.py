@@ -1,4 +1,5 @@
 import bcrypt
+import os
 from fastapi import APIRouter, HTTPException, status
 
 from auth.jwt import create_access_token
@@ -6,10 +7,9 @@ from models.auth import LoginRequest, TokenResponse
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-# Usuario hardcoded para demo. En producción usar una base de datos.
-# Credenciales: username=admin / password=weddy2024
+_ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "weddy2024").encode()
 _USERS: dict[str, bytes] = {
-    "admin": bcrypt.hashpw(b"weddy2024", bcrypt.gensalt()),
+    "admin": bcrypt.hashpw(_ADMIN_PASSWORD, bcrypt.gensalt()),
 }
 
 
