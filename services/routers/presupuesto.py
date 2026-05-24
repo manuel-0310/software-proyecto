@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from typing import Annotated
 
 from auth.dependencies import get_current_user
 from models.presupuesto import PresupuestoConfig, PresupuestoResumen
@@ -36,7 +37,7 @@ def obtener_presupuesto():
 
 
 @router.post("/configurar", response_model=PresupuestoResumen)
-def configurar_presupuesto(config: PresupuestoConfig, _: str = Depends(get_current_user)):
+def configurar_presupuesto(config: PresupuestoConfig, _: Annotated[str, Depends(get_current_user)]):
     """Actualiza la configuración del presupuesto. Requiere Bearer token JWT en el header Authorization."""
     store.presupuesto["presupuesto_total"] = config.presupuesto_total
     store.presupuesto["costo_por_invitado_confirmado"] = config.costo_por_invitado_confirmado
