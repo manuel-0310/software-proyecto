@@ -1,0 +1,26 @@
+# Entornos virtuales
+.venv/
+.venv-local/
+venv/
+
+# Tests y reportes — no se necesitan en producción
+tests/
+reports/
+
+# Dependencias de desarrollo
+requirements-dev.txt
+
+# Artefactos de Python
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Variables de entorno con credenciales
+.env
+.env.*
+
+# Metadatos del sistema
+.DS_Store
+*.log
