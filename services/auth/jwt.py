@@ -19,12 +19,13 @@ Luego úsalo en endpoints protegidos:
 IMPORTANTE: En producción, mover SECRET_KEY a una variable de entorno.
 """
 
+import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from jose import JWTError, jwt
 
-SECRET_KEY = "weddy-dev-secret-key-cambiar-en-produccion"
+SECRET_KEY = os.environ.get("SECRET_KEY", "weddy-dev-secret-key-cambiar-en-produccion")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 180
 
