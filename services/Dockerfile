@@ -16,7 +16,12 @@ RUN pip install --no-cache-dir --only-binary :all: --require-hashes -r requireme
     && addgroup --system appgroup \
     && adduser --system --ingroup appgroup appuser
 
-COPY . .
+COPY main.py tracing.py ./
+COPY auth/ ./auth/
+COPY data/ ./data/
+COPY models/ ./models/
+COPY routers/ ./routers/
+COPY telemetry/ ./telemetry/
 
 # Transfiere propiedad de los archivos al usuario sin privilegios
 RUN chown -R appuser:appgroup /app
