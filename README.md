@@ -93,7 +93,7 @@ cd client && flutter run
 
 | Documento | Contenido |
 |---|---|
-| [informe-tecnico.md](docs/informe-tecnico.md) | Informe técnico completo: arquitectura C4, patrones, CI/CD, DevSecOps, pruebas, resiliencia, observabilidad, seguridad |
+| [informe-tecnico.md](docs/documentacion.pdf) | Informe técnico completo: arquitectura C4, patrones, CI/CD, DevSecOps, pruebas, resiliencia, observabilidad, seguridad |
 | [guia-ejecucion.md](docs/guia-ejecucion.md) | Cómo instalar, configurar y ejecutar el proyecto paso a paso |
 | [resiliencia.md](docs/resiliencia.md) | Investigación y evidencia del patrón Circuit Breaker |
 | [observabilidad.md](docs/observabilidad.md) | Configuración y evidencia de Prometheus, Grafana y Jaeger |
